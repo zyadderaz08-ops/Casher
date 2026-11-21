@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>كاشير Hamborghini - برجر • كار</title>
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#f5b700" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Hamborghini" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
   <style>
     * { box-sizing: border-box; font-family: Tahoma, Arial, sans-serif; }
     body { margin: 0; background: #141414; color: #fff; }
@@ -186,7 +192,6 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(shiftData));
       } catch (err) {
-        // تجاهل خطأ التخزين لو المساحة ممتلئة أو التخزين مقفول
       }
     }
 
@@ -357,6 +362,12 @@
     renderTabs();
     renderMenu();
     renderCart();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
